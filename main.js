@@ -12,6 +12,7 @@ rightWrist_y = 0;
 leftWrist_x = 0;
 leftWrist_y = 0;
 scoreleftWrist = 0;
+scorerightWrist = 0;
 song_name = "";
 
 function setup(){
@@ -34,6 +35,8 @@ function draw(){
 
     song_name = song2.isPlaying();
     console.log(song_name);
+    song_name1 = song1.isPlaying();
+    console.log(song_name1);
 
     if(scoreleftWrist > 0.2){
         circle(leftWrist_x,leftWrist_y,20);
@@ -43,8 +46,19 @@ function draw(){
         }
         else{
             console.log("Song Name: Peter Pan Song");
-            document.getElementById("song_id").innerHTML = "Song Name: Peter Pan Song";
+            document.getElementById("song_name_button").innerHTML = "Song Name: Peter Pan Song";
         }
+    }
+        if(scorerightWrist > 0.2){
+            circle(rightWrist_x,rightWrist_y,20);
+            song2.stop();
+            if(song_name1 == false){
+                song1.play();
+            }
+            else{
+                console.log("Song Name: Harry Potter Theme Song");
+                document.getElementById("song_name_button").innerHTML = "Song Name: Harry Potter Theme Song";
+            }
     }
 }
 
@@ -58,6 +72,9 @@ function gotposes(results){
 
         scoreleftWrist = results[0].pose.keypoints[9].score;
         console.log(scoreleftWrist);
+
+        scorerightWrist = results[0].pose.keypoints[10].score;
+        console.log(scorerightWrist);
 
         leftWrist_x = results[0].pose.leftWrist.x;
         leftWrist_y = results[0].pose.leftWrist.y;
